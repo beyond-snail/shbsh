@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/color_green_active">
+
+        <LinearLayout
+            android:id="@+id/lv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_button_click_style"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/content2border_padding"
+            android:paddingRight="@dimen/content2border_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/back"
+                android:clickable="false" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/normal_black_text"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="交易记录"
+            android:textColor="@color/color_white_text"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_green"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="@dimen/content2border_margin"
+            android:layout_marginRight="@dimen/content2border_margin"
+            android:layout_weight="1"
+            android:background="@drawable/shadow_bg"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content2border_margin"
+                android:background="@mipmap/icon_search"
+                android:clickable="false" />
+
+            <com.landicorp.yinshang.view.ClearEditText
+                android:id="@+id/check_stock_search_edt"
+                style="@style/normal_black_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:imeOptions="actionSearch"
+                android:gravity="left|center_vertical"
+                android:hint="输入订单号"
+                android:paddingLeft="@dimen/content2border_padding"
+                android:paddingRight="@dimen/content2border_padding"
+                android:inputType="number"
+                android:singleLine="true" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <ListView
+        android:id="@+id/listview_trans_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/nulls"
+        android:layout_margin="1dp"
+        android:dividerHeight="6dp"/>
+
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <RelativeLayout
+        android:id="@+id/layout_shoudan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/normal_black_text"
+            android:text="收单撤销" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/icon_goto" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <RelativeLayout
+        android:id="@+id/layout_weixin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/normal_black_text"
+            android:text="微信撤销" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/icon_goto" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <RelativeLayout
+        android:id="@+id/layout_zhifubao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/normal_black_text"
+            android:text="支付宝撤销" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/icon_goto" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <RelativeLayout
+        android:id="@+id/layout_qianbao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/normal_black_text"
+            android:text="钱包撤销" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/icon_goto" />
+    </RelativeLayout>-->
+</LinearLayout>
+
+
+
+
+

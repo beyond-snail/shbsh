@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sdk4upos_20161021_mix">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/sdk4upos_20161021_mix.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

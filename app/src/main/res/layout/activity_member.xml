@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/color_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/color_green_active">
+
+        <LinearLayout
+            android:id="@+id/lv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/title_button_click_style"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/content2border_padding"
+            android:paddingRight="@dimen/content2border_padding" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:background="@mipmap/back" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/normal_black_text"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="会员信息"
+            android:textColor="@color/color_white_text"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="会员名" />
+
+        <TextView
+            android:id="@+id/txt_member_name"
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="会员卡号" />
+
+        <TextView
+            android:id="@+id/txt_memberNo"
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="手机号" />
+
+        <TextView
+            android:id="@+id/txt_member_mobile"
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="可用积分" />
+
+        <TextView
+            android:id="@+id/txt_member_integral"
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/color_red_text"
+            android:gravity="right" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+        <com.landicorp.yinshang.view.ClearEditText
+            android:id="@+id/edt_deduction_amt"
+            style="@style/switch_parent_layout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:maxLength="12"
+            android:padding="5dp"
+            android:maxLines="1"
+            android:textColor="@color/color_black_text"
+            android:textColorHint="@color/color_gray_text"
+            android:inputType="number"
+            android:hint="请输入抵扣积分"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/txt_deduction_amt"
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="可抵扣0.0元"
+            android:gravity="left" />
+
+        <CheckBox
+            android:id="@+id/ckb_deduction_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是否抵扣"
+            android:checked="true"
+            android:textColor="@color/color_red_text"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/txt_coupons"
+            style="@style/normal_black_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="可使用券" />
+
+        <Button
+            android:id="@+id/btn_coupons"
+            style="@style/normal_button"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="查看列表"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_stroke" />
+
+    <TextView
+        android:id="@+id/txt_used_coupons"
+        style="@style/normal_black_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="left"
+        android:text="当期使用了" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/normal_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:text="下一步" />
+
+        <Button
+            android:id="@+id/btn_not_use"
+            style="@style/normal_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:text="不使用权益" />
+    </LinearLayout>
+</LinearLayout>
+
+
+
+
+

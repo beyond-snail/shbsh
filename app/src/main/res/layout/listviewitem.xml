@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/normal_black_text"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="优惠券ID" />
+
+            <TextView
+                android:id="@+id/txt_coupon_sn"
+                style="@style/normal_black_text"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:text="angelababy" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/normal_black_text"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="优惠券名称" />
+
+            <TextView
+                android:id="@+id/txt_coupon_name"
+                style="@style/normal_black_text"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:text="angelababy" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/normal_black_text"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="优惠券金额" />
+
+            <TextView
+                android:id="@+id/txt_coupon_money"
+                style="@style/normal_black_text"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:text="angelababy" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_more_select"
+            style="@style/normal_black_text"
+            android:layout_width="wrap_content"
+            android:gravity="right"
+            android:text="不支持多选" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/item_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" />
+
+</LinearLayout>

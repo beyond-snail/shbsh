@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_green_active"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/color_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/id_ll_shiftroom"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="20dp"
+                android:background="#628427"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/bj"
+                    android:clickable="false"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="班结"
+                    android:textColor="@color/color_white_text"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_ll_shiftroom_day"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="#CD8500"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/rj"
+                    android:clickable="false"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="日结"
+                    android:textColor="@color/color_white_text"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/id_ll_shiftroom_record"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="20dp"
+                android:background="#24a2dd"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/jiaoyi"
+                    android:clickable="false"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="班结记录"
+                    android:textColor="@color/color_white_text"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@color/color_green_inactive"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/qiandao"
+                    android:clickable="false"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="签到"
+                    android:textColor="@color/color_white_text"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:gravity="center">-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/btn_modify_passwrd"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:background="#ce3339"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<Button-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@mipmap/xiugai"-->
+                    <!--android:clickable="false"-->
+                    <!--android:minHeight="0dp"-->
+                    <!--android:minWidth="0dp" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:text="修改密码"-->
+                    <!--android:textColor="@color/color_white_text"-->
+                    <!--android:textSize="20sp" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/btn_bj"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:background="@color/color_green_bj"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<Button-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@mipmap/bj"-->
+                    <!--android:clickable="false"-->
+                    <!--android:minHeight="0dp"-->
+                    <!--android:minWidth="0dp" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:text="班结"-->
+                    <!--android:textColor="@color/color_white_text"-->
+                    <!--android:textSize="20sp" />-->
+            <!--</LinearLayout>-->
+
+
+            <!--<Button-->
+            <!--android:id="@+id/btn_setting"-->
+            <!--style="@style/normal_button"-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="150dp"-->
+            <!--android:text="设置"-->
+            <!--android:textSize="20sp"-->
+            <!--android:visibility="invisible" />-->
+        <!--</LinearLayout>-->
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

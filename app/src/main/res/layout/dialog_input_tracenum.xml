@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/normal_black_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/color_green_active"
+        android:gravity="center"
+        android:text="请输入原凭证号"
+        android:textColor="@color/color_white_text"
+        android:textSize="18sp" />
+
+
+    <com.landicorp.yinshang.view.ClearEditText
+        android:id="@+id/edt_memberNo"
+        style="@style/switch_parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="8dp"
+        android:maxLength="6"
+        android:inputType="number"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:textColor="@color/color_black_text"
+        android:textColorHint="@color/color_gray_text"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp">
+
+
+        <Button
+            android:id="@+id/dialog_cancel_btn"
+            style="@style/normal_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:text="@android:string/cancel" />
+
+        <Button
+            android:id="@+id/dialog_confirm_btn"
+            style="@style/normal_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:text="@android:string/ok" />
+    </LinearLayout>
+
+</LinearLayout>

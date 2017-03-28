@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_green_active"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            style="@style/switch_parent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/content2border_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@mipmap/icon_user" />
+
+            <View
+                android:layout_width="@dimen/line_height_width"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/content2border_margin"
+                android:background="@color/color_stroke" />
+
+            <com.landicorp.yinshang.view.ClearEditText
+                android:id="@+id/login_username"
+                style="@style/normal_black_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="left|center_vertical"
+                android:hint="请输入用户名"
+                android:maxLength="12"
+                android:paddingLeft="@dimen/content2border_padding"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/switch_parent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/content2border_margin"
+            android:gravity="center_vertical"
+            android:padding="@dimen/content2border_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@mipmap/icon_password" />
+
+            <TextView
+                android:layout_width="@dimen/line_height_width"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/content2border_margin"
+                android:background="@color/color_stroke" />
+
+            <com.landicorp.yinshang.view.ClearEditText
+                android:id="@+id/login_password"
+                style="@style/normal_black_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="left|center_vertical"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:maxLength="12"
+                android:paddingLeft="@dimen/content2border_padding"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/normal_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="8dp"
+                android:text="取消"/>
+            <Button
+                android:id="@+id/btn_sign"
+                style="@style/normal_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="签到" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

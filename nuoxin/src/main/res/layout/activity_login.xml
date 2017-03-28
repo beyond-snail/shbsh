@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_margin="@dimen/home_top_margin"
+        android:text="ff"/>
+
+
+    <LinearLayout
+        style="@style/switch_parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginTop="@dimen/content2border_margin"
+        android:gravity="center_vertical"
+        android:padding="@dimen/content2border_padding">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@mipmap/icon_user" />
+
+        <View
+            android:layout_width="@dimen/line_height_width"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/content2border_margin"
+            android:background="@color/color_stroke" />
+
+        <com.landicorp.nuoxin.views.ClearEditText
+            android:id="@+id/login_username_edt"
+            style="@style/normal_black_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:hint="@string/login_input_username"
+            android:maxLength="12"
+            android:paddingLeft="@dimen/content2border_padding"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/switch_parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginBottom="@dimen/home_top_margin"
+        android:layout_marginTop="@dimen/content2border_margin"
+        android:gravity="center_vertical"
+        android:padding="@dimen/content2border_padding">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@mipmap/icon_password" />
+
+        <TextView
+            android:layout_width="@dimen/line_height_width"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/content2border_margin"
+            android:background="@color/color_stroke" />
+
+        <com.landicorp.nuoxin.views.ClearEditText
+            android:id="@+id/login_password_edt"
+            style="@style/normal_black_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:hint="@string/login_input_password"
+            android:inputType="textPassword"
+            android:maxLength="12"
+            android:paddingLeft="@dimen/content2border_padding"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        style="@style/normal_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginLeft="@dimen/content2border_margin"
+        android:layout_marginRight="@dimen/content2border_margin"
+        android:text="@string/login"
+        android:textSize="@dimen/textSize_large" />
+
+</LinearLayout>
