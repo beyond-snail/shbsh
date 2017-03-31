@@ -1,10 +1,5 @@
 package com.landicorp.yinshang.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.ArrayList;
-
 /**
  * Created by u on 2017/1/9.
  */
@@ -17,4 +12,18 @@ public class TransactionRespBean  {
     public String title_url;//优惠券领取二维码路径
     public int money;//优惠券金额
     public int backAmt;//返利金额
+
+
+    @Override
+    public String toString() {
+        return "TransactionRespBean{" +
+                "point_url='" + point_url + '\'' +
+                ", point=" + point +
+                ", pointCurrent=" + pointCurrent +
+                ", coupon='" + coupon + '\'' +
+                ", title_url='" + title_url + '\'' +
+                ", money=" + money +
+                ", backAmt=" + backAmt +
+                '}';
+    }
 }

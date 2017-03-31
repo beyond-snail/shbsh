@@ -26,6 +26,7 @@ import com.landicorp.yinshang.db.LoginRespBean;
 import com.landicorp.yinshang.db.LoginRespBeanDao;
 import com.landicorp.yinshang.db.TransactionReqSubBean;
 import com.landicorp.yinshang.db.TransactionReqSubBeanDao;
+import com.landicorp.yinshang.myokhttp.util.LogUtils;
 import com.landicorp.yinshang.utils.AmountUtil;
 import com.landicorp.yinshang.utils.Base64;
 import com.landicorp.yinshang.utils.BillPrintUtils;
@@ -218,9 +219,10 @@ public class CashAccountActivity extends BaseActivity {
             sb.append(couponSns);
         if(merchantNo != null)
             sb.append(merchantNo);
+        sb.append(SharePreferenceHelper.getInstance(CashAccountActivity.this).getString("username"));
         if(password != null)
             sb.append(password);
-        sb.append(SharePreferenceHelper.getInstance(CashAccountActivity.this).getString("username"));
+
         sb.append(payType);
         sb.append(pointAmount);
         sb.append(pointCoverAmount);
@@ -272,6 +274,7 @@ public class CashAccountActivity extends BaseActivity {
                     subBean.setScanUrl(result.result.point_url);
                     dao.insertOrReplace(subBean);
 //                    printInfo(subBean.getClientOrderNo(), result.result.point_url, subBean.getPayType());
+                    LogUtils.e(result.result.toString());
                     printInfo(subBean.getClientOrderNo(), subBean.getPayType(), result.result);
                 } else {
 //                    printInfo(subBean.getClientOrderNo(), null, subBean.getPayType());
@@ -338,23 +341,27 @@ public class CashAccountActivity extends BaseActivity {
                         Glide.with(CashAccountActivity.this).load(result.coupon).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
-                                        (double) 100, 2),clientOrderNo, resource1, payType,resource, result.point, result.title_url, result.money);
+                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+                                        clientOrderNo, resource1, payType,resource, result.point, result.title_url, result.money);
                                 layout_xianjin.setVisibility(View.GONE);
                                 layout_finish.setVisibility(View.VISIBLE);
                             }
 
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
-                                        (double) 100, 2),clientOrderNo, resource1, payType);
+//                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+//                                        clientOrderNo, resource1, payType);
+                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+                                        clientOrderNo, resource1, payType, null, result.point, result.title_url, result.money);
                                 layout_xianjin.setVisibility(View.GONE);
                                 layout_finish.setVisibility(View.VISIBLE);
                             }
                         });
                     } else {
-                        BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
-                                (double) 100, 2),clientOrderNo, resource, payType);
+//                        BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
+//                                (double) 100, 2),clientOrderNo, resource, payType);
+                        BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+                                clientOrderNo, resource1, payType, null, result.point, result.title_url, result.money);
                         layout_xianjin.setVisibility(View.GONE);
                         layout_finish.setVisibility(View.VISIBLE);
                     }
@@ -362,13 +369,16 @@ public class CashAccountActivity extends BaseActivity {
 
                 @Override
                 public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                    BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney,AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, null, payType);
+//                    BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney,AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, null, payType);
+                    BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+                            clientOrderNo, null, payType, null, result.point, result.title_url, result.money);
                     layout_xianjin.setVisibility(View.GONE);
                     layout_finish.setVisibility(View.VISIBLE);
                 }
             }); //方法中设置asBitmap可以设置回调类型
         } else {
             BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, 0.0, clientOrderNo, null, payType);
+//            BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, 0.0, clientOrderNo, null, payType, null, result.point, result.title_url, result.money);
             layout_xianjin.setVisibility(View.GONE);
             layout_finish.setVisibility(View.VISIBLE);
         }

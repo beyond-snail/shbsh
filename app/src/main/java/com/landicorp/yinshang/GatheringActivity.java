@@ -30,6 +30,7 @@ import com.landicorp.yinshang.db.PayInfoBean;
 import com.landicorp.yinshang.db.PayInfoBeanDao;
 import com.landicorp.yinshang.db.TransactionReqSubBean;
 import com.landicorp.yinshang.db.TransactionReqSubBeanDao;
+import com.landicorp.yinshang.myokhttp.util.LogUtils;
 import com.landicorp.yinshang.utils.AmountUtil;
 import com.landicorp.yinshang.utils.Base64;
 import com.landicorp.yinshang.utils.BillPrintUtils;
@@ -289,9 +290,10 @@ public class GatheringActivity extends BaseActivity {
             sb.append(couponSns);
         if (merchantNo != null)
             sb.append(merchantNo);
+        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         if (password != null)
             sb.append(password);
-        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
+
         sb.append(payType);
         sb.append(pointAmount);
         sb.append(pointCoverAmount);
@@ -430,9 +432,10 @@ public class GatheringActivity extends BaseActivity {
             sb.append(couponSns);
         if (merchantNo != null)
             sb.append(merchantNo);
+        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         if (password != null)
             sb.append(password);
-        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
+
         sb.append(payType);
         sb.append(pointAmount);
         sb.append(pointCoverAmount);
@@ -565,9 +568,10 @@ public class GatheringActivity extends BaseActivity {
             sb.append(couponSns);
         if (merchantNo != null)
             sb.append(merchantNo);
+        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         if (password != null)
             sb.append(password);
-        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
+
         sb.append(payType);
         sb.append(pointAmount);
         sb.append(pointCoverAmount);
@@ -841,7 +845,7 @@ public class GatheringActivity extends BaseActivity {
 //
 //    }
     private void printOnlyScan(final String clientOrderNo, final int payType, final TransactionRespBean result) {
-
+        LogUtils.e(result.toString());
         if (result != null && result.point_url != null) {
             Glide.with(this).load(result.point_url).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
@@ -871,11 +875,12 @@ public class GatheringActivity extends BaseActivity {
                 }
             }); //方法中设置asBitmap可以设置回调类型
         } else {
+
         }
     }
 
     private void printInfo(final String clientOrderNo, final int payType, final TransactionRespBean result) {
-
+        LogUtils.e(result.toString());
         if (result != null && result.point_url != null) {
             Glide.with(this).load(result.point_url).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
@@ -886,14 +891,11 @@ public class GatheringActivity extends BaseActivity {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                                 if (payType == 13) {
-                                    BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
-                                            (double) 100, 2), clientOrderNo, walletRespBean.groupId,
-                                            ((BaseApplication) getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
-                                            resource, result.point, result.title_url, result.money);
+                                    BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+                                            clientOrderNo, walletRespBean.groupId, ((BaseApplication) getApplication()).getSystemInfo().getSN(), resourceYouhui, payType, resource, result.point, result.title_url, result.money);
                                 } else {
-                                    BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
-                                            (double) 100, 2), clientOrderNo, resourceYouhui, payType,
-                                            resource, result.point, result.title_url, result.money);
+                                    BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+                                            clientOrderNo, resourceYouhui, payType, resource, result.point, result.title_url, result.money);
                                 }
                             }
 
@@ -903,9 +905,12 @@ public class GatheringActivity extends BaseActivity {
                                     BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, walletRespBean.groupId,
                                             ((BaseApplication) getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
                                             null, result.point, result.title_url, result.money);
-                                } else
-                                    BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
-                                            (double) 100, 2), clientOrderNo, resourceYouhui, payType);
+                                } else {
+//                                    BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+//                                            clientOrderNo, resourceYouhui, payType);
+                                    BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2),
+                                            clientOrderNo, resourceYouhui, payType, null, result.point, result.title_url, result.money);
+                                }
                             }
                         });
                     } else {
@@ -913,8 +918,12 @@ public class GatheringActivity extends BaseActivity {
                             BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, walletRespBean.groupId,
                                     ((BaseApplication) getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
                                     null, result.point, result.title_url, result.money);
-                        } else
-                            BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, resource, payType);
+                        } else {
+//                            BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2),
+//                                    clientOrderNo, resource, payType);
+                            BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+                                    clientOrderNo, resourceYouhui, payType, null, result.point, result.title_url, result.money);
+                        }
                     }
                 }
 
@@ -924,8 +933,11 @@ public class GatheringActivity extends BaseActivity {
                         BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, walletRespBean.groupId,
                                 ((BaseApplication) getApplication()).getSystemInfo().getSN(), null, payType,
                                 null, result.point, result.title_url, result.money);
-                    } else
-                        BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, null, payType);
+                    } else {
+//                        BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, null, payType);
+                        BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,(double) 100, 2),
+                                clientOrderNo, null, payType, null, result.point, result.title_url, result.money);
+                    }
                 }
             }); //方法中设置asBitmap可以设置回调类型
         } else {
@@ -933,8 +945,11 @@ public class GatheringActivity extends BaseActivity {
                 BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, 0.0, clientOrderNo, walletRespBean.groupId,
                         ((BaseApplication) getApplication()).getSystemInfo().getSN(), null, payType,
                         null, result.point, result.title_url, result.money);
-            } else
+            } else {
                 BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, 0.0, clientOrderNo, null, payType);
+//                BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, 0.0,
+//                        clientOrderNo, null, payType, null, result.point, result.title_url, result.money);
+            }
         }
     }
 
