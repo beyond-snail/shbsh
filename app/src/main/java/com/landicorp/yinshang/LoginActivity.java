@@ -13,6 +13,7 @@ import com.landicorp.yinshang.data.model.LoginReqSubBean;
 import com.landicorp.yinshang.data.response.LoginResponse;
 import com.landicorp.yinshang.db.DBManager;
 import com.landicorp.yinshang.db.LoginRespBeanDao;
+import com.landicorp.yinshang.db.OperatorList;
 import com.landicorp.yinshang.utils.Constant;
 import com.landicorp.yinshang.utils.MD5Util;
 import com.landicorp.yinshang.utils.MyToast;
@@ -24,6 +25,7 @@ import com.landicorp.yinshang.zfbj.utils.SPUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by u on 2017/1/9.
@@ -49,8 +51,8 @@ public class LoginActivity extends BaseActivity implements ReqCallBack<LoginResp
         login_password = (ClearEditText) findViewById(R.id.login_password);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        username = SharePreferenceHelper.getInstance(LoginActivity.this).getString("username").equals("") ? "01" : SharePreferenceHelper.getInstance(LoginActivity.this).getString("username");
-        password = SharePreferenceHelper.getInstance(LoginActivity.this).getString("password").equals("") ? "0000" : SharePreferenceHelper.getInstance(LoginActivity.this).getString("password");
+//        username = SharePreferenceHelper.getInstance(LoginActivity.this).getString("username").equals("") ? "01" : SharePreferenceHelper.getInstance(LoginActivity.this).getString("username");
+//        password = SharePreferenceHelper.getInstance(LoginActivity.this).getString("password").equals("") ? "0000" : SharePreferenceHelper.getInstance(LoginActivity.this).getString("password");
         if(SharePreferenceHelper.getInstance(LoginActivity.this).getString("Date") != null) {
             String date = SharePreferenceHelper.getInstance(LoginActivity.this).getString("Date");
             if(sf.format(new Date()).equals(date)) {
@@ -82,18 +84,48 @@ public class LoginActivity extends BaseActivity implements ReqCallBack<LoginResp
         RequestManager.getInstance(this).post(this, apiService.login(getBody(postInfoStr)), this);
     }
 
+    private void login1(String username, String password) {
+        seriesNo = ((BaseApplication)getApplication()).getSystemInfo().getSN();
+        BaseReqBean<LoginReqSubBean> baseReqBean = new BaseReqBean<LoginReqSubBean>();
+        baseReqBean.setCmd("posSignIn");
+        LoginReqSubBean requestSubBean = new LoginReqSubBean();
+        StringBuffer sb = new StringBuffer();
+        sb.append(username);
+        sb.append(password);
+        sb.append(seriesNo);
+        sb.append(Constant.KEY);
+        String verify = MD5Util.md5(sb.toString());
+        requestSubBean.setVerify(verify);
+        requestSubBean.setPos_number(seriesNo);
+        requestSubBean.setOperator_num(username);
+        requestSubBean.setOperator_password(password);
+        baseReqBean.setParams(requestSubBean);
+        String postInfoStr = gson.toJson(baseReqBean);
+        RequestManager.getInstance(this).post(this, apiService.login(getBody(postInfoStr)), this);
+    }
+
     @Override
     public void onReqSuccess(LoginResponse result) {
 //        MyToast.showText(result.code+ "-----------" + result.result.sid);
         //sid=11
         if(result != null && result.code.equals(Constant.SUCCESS_CODE)) {
+
+            //判断当前的操作员是否存在返回列表中
+            List<OperatorList> lists = result.result.getOperatorLists();
+
+            if (!(checkOpertorUserName(lists, login_username.getText().toString()) && checkOptertorPsw(lists, login_password.getText().toString()))){
+                MyToast.showText("操作员账号或者密码错误");
+                return;
+            }
+
+
             LoginRespBeanDao dao = DBManager.getInstance().getSession().getLoginRespBeanDao();
             dao.deleteAll();
             dao.insert(result.result);//插入数据库
             SharePreferenceHelper.getInstance(LoginActivity.this).putInt("SID", result.result.sid);
             SharePreferenceHelper.getInstance(LoginActivity.this).putString("Date", sf.format(new Date()));
-            SharePreferenceHelper.getInstance(LoginActivity.this).putString("username", username);
-            SharePreferenceHelper.getInstance(LoginActivity.this).putString("password", password);
+            SharePreferenceHelper.getInstance(LoginActivity.this).putString("username", login_username.getText().toString());
+            SharePreferenceHelper.getInstance(LoginActivity.this).putString("password", login_password.getText().toString());
 
             SPUtils.put(LoginActivity.this, Constant.SHIFT_ROOM_TIME, StringUtils.getCurTime());
 
@@ -103,6 +135,25 @@ public class LoginActivity extends BaseActivity implements ReqCallBack<LoginResp
         } else {
             MyToast.showText(result.msg);
         }
+    }
+
+
+    private boolean checkOpertorUserName(List<OperatorList> lists, String username) {
+        for (OperatorList operatorBean : lists) {
+            if (StringUtils.isEquals(username, operatorBean.getOperator_num())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkOptertorPsw(List<OperatorList> lists, String password){
+        for (OperatorList operatorBean : lists){
+            if (StringUtils.isEquals(password, operatorBean.getOperator_password())){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -122,12 +173,23 @@ public class LoginActivity extends BaseActivity implements ReqCallBack<LoginResp
                         MyToast.showText(getString(R.string.no_network));
                         return;
                     }
-                    if(login_username.getText().toString().equals(username) && login_password.getText().toString().equals(password)) {
-                        login();
-                    } else {
-                        MyToast.showText("用户名或密码错误");
+
+                    if (StringUtils.isEmpty(login_username.getText().toString())){
+                        MyToast.showText("用户名为空");
                         return;
                     }
+                    if (StringUtils.isEmpty(login_password.getText().toString())){
+                        MyToast.showText("密码错误");
+                        return;
+                    }
+//                    if(login_username.getText().toString().equals(username) && login_password.getText().toString().equals(password)) {
+////                        login();
+//                        login1(login_username.getText().toString(), login_password.getText().toString());
+//                    } else {
+//                        MyToast.showText("用户名或密码错误");
+//                        return;
+//                    }
+                    login1(login_username.getText().toString(), login_password.getText().toString());
                     break;
             }
         }

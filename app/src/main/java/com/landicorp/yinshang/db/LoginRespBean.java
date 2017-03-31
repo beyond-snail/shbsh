@@ -2,7 +2,9 @@ package com.landicorp.yinshang.db;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Transient;
+
+import java.util.List;
 
 /**
  * Created by u on 2017/1/9.
@@ -25,6 +27,20 @@ public class LoginRespBean {
     public String activeCode;//激活码
     public int scanPayType;//扫码支付类型
     public String operatList;//权限列表
+    @Transient
+    public List<OperatorList> operator_list; //操作员列表
+
+
+
+    @Generated(hash = 1000895250)
+    public LoginRespBean() {
+    }
+
+
+
+
+
+
 
     @Generated(hash = 910985904)
     public LoginRespBean(int sid, String merchantNo, String terminalNo,
@@ -48,9 +64,11 @@ public class LoginRespBean {
         this.operatList = operatList;
     }
 
-    @Generated(hash = 1000895250)
-    public LoginRespBean() {
-    }
+
+
+
+
+
 
     public int getSid() {
         return sid;
@@ -162,5 +180,13 @@ public class LoginRespBean {
 
     public void setOperatList(String operatList) {
         this.operatList = operatList;
+    }
+
+    public List<OperatorList> getOperatorLists() {
+        return operator_list;
+    }
+
+    public void setOperatorLists(List<OperatorList> operatorLists) {
+        this.operator_list = operatorLists;
     }
 }

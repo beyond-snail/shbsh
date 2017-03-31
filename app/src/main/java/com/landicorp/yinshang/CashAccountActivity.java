@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,11 +33,9 @@ import com.landicorp.yinshang.utils.Constant;
 import com.landicorp.yinshang.utils.MD5Util;
 import com.landicorp.yinshang.utils.MyToast;
 import com.landicorp.yinshang.utils.SharePreferenceHelper;
-import com.landicorp.yinshang.view.InputAmt;
 import com.landicorp.yinshang.view.InputAmt1;
 import com.ums.AppHelper;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -223,6 +220,7 @@ public class CashAccountActivity extends BaseActivity {
             sb.append(merchantNo);
         if(password != null)
             sb.append(password);
+        sb.append(SharePreferenceHelper.getInstance(CashAccountActivity.this).getString("username"));
         sb.append(payType);
         sb.append(pointAmount);
         sb.append(pointCoverAmount);
@@ -254,6 +252,7 @@ public class CashAccountActivity extends BaseActivity {
         subBean.setT(t);
         subBean.setTransNo(transNo);
         subBean.setVerify(verify);
+        subBean.setOperator_num(SharePreferenceHelper.getInstance(CashAccountActivity.this).getString("username"));
         baseReqBean.setParams(subBean);
         String postInfoStr = gson.toJson(baseReqBean);
         if(saleRespBean != null) {
@@ -339,21 +338,23 @@ public class CashAccountActivity extends BaseActivity {
                         Glide.with(CashAccountActivity.this).load(result.coupon).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2),clientOrderNo, resource1, payType,
-                                         resource, result.point, result.title_url, result.money);
+                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
+                                        (double) 100, 2),clientOrderNo, resource1, payType,resource, result.point, result.title_url, result.money);
                                 layout_xianjin.setVisibility(View.GONE);
                                 layout_finish.setVisibility(View.VISIBLE);
                             }
 
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2),clientOrderNo, resource1, payType);
+                                BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
+                                        (double) 100, 2),clientOrderNo, resource1, payType);
                                 layout_xianjin.setVisibility(View.GONE);
                                 layout_finish.setVisibility(View.VISIBLE);
                             }
                         });
                     } else {
-                        BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2),clientOrderNo, resource, payType);
+                        BillPrintUtils.printBill(CashAccountActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
+                                (double) 100, 2),clientOrderNo, resource, payType);
                         layout_xianjin.setVisibility(View.GONE);
                         layout_finish.setVisibility(View.VISIBLE);
                     }

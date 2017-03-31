@@ -12,6 +12,7 @@ public class UndoReqSubBean {
     private String action;//操作动作
     private String payType;//支付方式
     private String verify;
+    private String operator_num; //操作员号
     private long t;
 
     public String getOld_trade_order_num() {
@@ -60,6 +61,14 @@ public class UndoReqSubBean {
 
     public void setVerify(String verify) {
         this.verify = verify;
+    }
+
+    public String getOperator_num() {
+        return operator_num;
+    }
+
+    public void setOperator_num(String operator_num) {
+        this.operator_num = operator_num;
     }
 
     public long getT() {

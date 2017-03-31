@@ -5,17 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.landicorp.yinshang.data.ReqCallBack;
 import com.landicorp.yinshang.data.response.SaleResponse;
-import com.landicorp.yinshang.db.DBManager;
-import com.landicorp.yinshang.db.LoginRespBean;
-import com.landicorp.yinshang.db.LoginRespBeanDao;
 import com.landicorp.yinshang.utils.Constant;
 import com.landicorp.yinshang.utils.MyToast;
-
-import java.util.List;
 
 /**
  * Created by u on 2017/1/9.商户信息页面

@@ -235,6 +235,7 @@ public class TransDetailActivity extends BaseActivity {
         sb.append(authCode);//auth
         sb.append(new_trade_order_num);//new_trade_order_num
         sb.append(old_trade_order_num);//old_trade_order_num
+        sb.append(SharePreferenceHelper.getInstance(TransDetailActivity.this).getString("username"));
         sb.append(payType);//payType
         sb.append(t);
         sb.append(Constant.KEY);
@@ -246,6 +247,7 @@ public class TransDetailActivity extends BaseActivity {
         undoReqSubBean.setOld_trade_order_num(old_trade_order_num);
         undoReqSubBean.setPayType(payType);
         undoReqSubBean.setT(t);
+        undoReqSubBean.setOperator_num(SharePreferenceHelper.getInstance(TransDetailActivity.this).getString("username"));
         baseReqBean.setParams(undoReqSubBean);
         String postInfoStr = gson.toJson(baseReqBean);
         RequestManager.getInstance(this).post(this, apiService.undo(getBody(postInfoStr)), new ReqCallBack<UndoResponse>() {
@@ -288,6 +290,7 @@ public class TransDetailActivity extends BaseActivity {
         sb.append(action);//action 1为查询订单 2为交易撤销
         sb.append(new_trade_order_num);//new_trade_order_num
         sb.append(old_trade_order_num);//old_trade_order_num
+        sb.append(SharePreferenceHelper.getInstance(TransDetailActivity.this).getString("username"));
         sb.append(payType);//payType
         sb.append(sid);
         sb.append(Constant.KEY);
@@ -298,6 +301,7 @@ public class TransDetailActivity extends BaseActivity {
         undoReqSubBean.setOld_trade_order_num(old_trade_order_num);
         undoReqSubBean.setPayType(payType);
         undoReqSubBean.setSid(String.valueOf(sid));
+        undoReqSubBean.setOperator_num(SharePreferenceHelper.getInstance(TransDetailActivity.this).getString("username"));
         baseReqBean.setParams(undoReqSubBean);
         String postInfoStr = gson.toJson(baseReqBean);
         RequestManager.getInstance(this).post(this, apiService.undo(getBody(postInfoStr)), new ReqCallBack<UndoResponse>() {
@@ -344,6 +348,7 @@ public class TransDetailActivity extends BaseActivity {
         subBean.setT(bean.getT());
         subBean.setTransNo(bean.getTransNo());
         subBean.setVerify(bean.getVerify());
+        subBean.setOperator_num(bean.getOperator_num());
         baseReqBean.setParams(subBean);
         String postInfoStr = gson.toJson(baseReqBean);
         RequestManager.getInstance(this).postSpecial(this, apiService.uploadTransaction(getBody(postInfoStr)), new ReqCallBack<TransactionResponse>() {

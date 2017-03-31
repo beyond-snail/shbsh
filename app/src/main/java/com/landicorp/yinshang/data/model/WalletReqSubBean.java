@@ -16,6 +16,7 @@ public class WalletReqSubBean {
     private String TranAmt;//收款金额
     private String OrderCurrency;//币种
     private String verify;
+    private String operator_num; //操作员号
 
     public String getTranCode() {
         return TranCode;
@@ -95,5 +96,13 @@ public class WalletReqSubBean {
 
     public void setVerify(String verify) {
         this.verify = verify;
+    }
+
+    public String getOperator_num() {
+        return operator_num;
+    }
+
+    public void setOperator_num(String operator_num) {
+        this.operator_num = operator_num;
     }
 }

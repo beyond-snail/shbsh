@@ -37,7 +37,8 @@ public class BaseApplication extends LitePalApplication {
         String sysInfo = AppHelper.getBaseSysInfo(getApplicationContext());
         systemInfo = gson.fromJson(sysInfo, SystemInfoBean.class);
         CrashHandler.getInstance().init(this);
-        DBManager.getInstance();
+//        DBManager.getInstance();
+        DBManager.init(this);
         Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
     }
 

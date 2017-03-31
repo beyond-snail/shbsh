@@ -1,28 +1,15 @@
 package com.landicorp.yinshang;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.landicorp.yinshang.data.ReqCallBack;
-import com.landicorp.yinshang.data.RequestManager;
-import com.landicorp.yinshang.data.model.BaseReqBean;
-import com.landicorp.yinshang.data.model.LoginReqSubBean;
-import com.landicorp.yinshang.data.response.LoginResponse;
-import com.landicorp.yinshang.db.DBManager;
-import com.landicorp.yinshang.db.LoginRespBeanDao;
-import com.landicorp.yinshang.utils.Constant;
-import com.landicorp.yinshang.utils.MD5Util;
 import com.landicorp.yinshang.utils.MyToast;
 import com.landicorp.yinshang.utils.SharePreferenceHelper;
-import com.landicorp.yinshang.utils.Util;
 import com.landicorp.yinshang.view.ClearEditText;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by u on 2017/1/9.

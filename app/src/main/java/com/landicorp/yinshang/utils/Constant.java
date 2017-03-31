@@ -5,7 +5,7 @@ package com.landicorp.yinshang.utils;
  */
 
 public class Constant {
-    public static final String BASE_URL = "http://api.eboss007.com";
+    public static final String BASE_URL = "http://api1.eboss007.com";
     public static final String SUCCESS_CODE = "A00006";
     public static final String KEY = "dtradezaq12wsx";
 

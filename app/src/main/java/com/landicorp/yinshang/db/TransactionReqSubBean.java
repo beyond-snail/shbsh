@@ -34,14 +34,21 @@ public class TransactionReqSubBean {
     private int pointAmount;//消耗积分数
     @Id
     private String verify;
+    private String operator_num; //操作员号
 
 
-    @Generated(hash = 504904928)
+
+    @Generated(hash = 127012548)
+    public TransactionReqSubBean() {
+    }
+
+
+    @Generated(hash = 1269506433)
     public TransactionReqSubBean(String scanUrl, String orderAmount, String isUploadSuccess,
             String isUndo, int sid, String cardNo, String password, int cash, int bankAmount,
             int couponCoverAmount, int pointCoverAmount, String couponSns, String clientOrderNo,
             String activateCode, String merchantNo, long t, String transNo, String authCode,
-            String serialNum, int payType, int pointAmount, String verify) {
+            String serialNum, int payType, int pointAmount, String verify, String operator_num) {
         this.scanUrl = scanUrl;
         this.orderAmount = orderAmount;
         this.isUploadSuccess = isUploadSuccess;
@@ -64,10 +71,7 @@ public class TransactionReqSubBean {
         this.payType = payType;
         this.pointAmount = pointAmount;
         this.verify = verify;
-    }
-
-    @Generated(hash = 127012548)
-    public TransactionReqSubBean() {
+        this.operator_num = operator_num;
     }
 
 
@@ -245,5 +249,13 @@ public class TransactionReqSubBean {
 
     public void setVerify(String verify) {
         this.verify = verify;
+    }
+
+    public String getOperator_num() {
+        return operator_num;
+    }
+
+    public void setOperator_num(String operator_num) {
+        this.operator_num = operator_num;
     }
 }

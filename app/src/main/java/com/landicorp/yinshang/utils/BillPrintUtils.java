@@ -17,6 +17,7 @@ import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 
+import com.landicorp.yinshang.GatheringActivity;
 import com.landicorp.yinshang.db.DBManager;
 import com.landicorp.yinshang.db.LoginRespBean;
 import com.landicorp.yinshang.db.LoginRespBeanDao;
@@ -30,9 +31,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import static android.R.attr.data;
-import static android.R.attr.type;
 
 /**
  *
@@ -134,9 +132,9 @@ public class BillPrintUtils {
             content = "终端号:"+bean.getTerminalNo()+"\r\n";
             canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
 
-//            // 打印收银员
-//            content = "操作员:"+"\r\n";
-//            canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
+            // 打印收银员
+            content = "操作员:"+SharePreferenceHelper.getInstance(context).getString("username")+"\r\n";
+            canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
 
             // 打印收银员
             content = "日期时间:"+sf.format(new Date()) + "\r\n";
@@ -319,8 +317,8 @@ public class BillPrintUtils {
             canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
 
 //            // 打印收银员
-//            content = "操作员:"+"\r\n";
-//            canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
+            content = "操作员:"+SharePreferenceHelper.getInstance(context).getString("username")+"\r\n";
+            canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
 
             // 打印收银员
             content = "日期时间:"+sf.format(new Date()) + "\r\n";
@@ -389,6 +387,9 @@ public class BillPrintUtils {
                 canvas1.drawBitmap(bitmapQR, 0, 0, new Paint());
                 System.out.println(dist.getHeight());
                 bitmapPrint = mergeBitmap_TB(bitmap, dist, false);
+
+
+
                 if(couponBitmap != null) {
                     Bitmap bitmap2 = Bitmap
                             .createBitmap(WIDTH, 100, Config.ARGB_8888);
@@ -542,9 +543,9 @@ public class BillPrintUtils {
             content = "终端号:"+sn+"\r\n";
             canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
 
-//            // 打印收银员
-//            content = "操作员:"+"\r\n";
-//            canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
+            // 打印收银员
+            content = "操作员:"+SharePreferenceHelper.getInstance(context).getString("username")+"\r\n";
+            canvas = printSingleLine(canvas, paint, Alignment.ALIGN_NORMAL, 0, 30, content);
 
             // 打印收银员
             content = "日期时间:"+sf.format(new Date()) + "\r\n";
@@ -741,6 +742,8 @@ public class BillPrintUtils {
                 canvas1.drawBitmap(bitmapQR, 0, 0, new Paint());
                 System.out.println(dist.getHeight());
                 bitmapPrint = mergeBitmap_TB(bitmap, dist, false);
+
+
                 if(couponBitmap != null) {
                     Bitmap bitmap2 = Bitmap
                             .createBitmap(WIDTH, 100, Config.ARGB_8888);

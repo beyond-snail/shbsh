@@ -44,6 +44,7 @@ public class TransactionReqSubBeanDao extends AbstractDao<TransactionReqSubBean,
         public final static Property PayType = new Property(19, int.class, "payType", false, "PAY_TYPE");
         public final static Property PointAmount = new Property(20, int.class, "pointAmount", false, "POINT_AMOUNT");
         public final static Property Verify = new Property(21, String.class, "verify", true, "VERIFY");
+        public final static Property Operator_num = new Property(22, String.class, "operator_num", false, "OPERATOR_NUM");
     }
 
 
@@ -80,7 +81,8 @@ public class TransactionReqSubBeanDao extends AbstractDao<TransactionReqSubBean,
                 "\"SERIAL_NUM\" TEXT," + // 18: serialNum
                 "\"PAY_TYPE\" INTEGER NOT NULL ," + // 19: payType
                 "\"POINT_AMOUNT\" INTEGER NOT NULL ," + // 20: pointAmount
-                "\"VERIFY\" TEXT PRIMARY KEY NOT NULL );"); // 21: verify
+                "\"VERIFY\" TEXT PRIMARY KEY NOT NULL ," + // 21: verify
+                "\"OPERATOR_NUM\" TEXT);"); // 22: operator_num
     }
 
     /** Drops the underlying database table. */
@@ -170,6 +172,11 @@ public class TransactionReqSubBeanDao extends AbstractDao<TransactionReqSubBean,
         if (verify != null) {
             stmt.bindString(22, verify);
         }
+ 
+        String operator_num = entity.getOperator_num();
+        if (operator_num != null) {
+            stmt.bindString(23, operator_num);
+        }
     }
 
     @Override
@@ -253,6 +260,11 @@ public class TransactionReqSubBeanDao extends AbstractDao<TransactionReqSubBean,
         if (verify != null) {
             stmt.bindString(22, verify);
         }
+ 
+        String operator_num = entity.getOperator_num();
+        if (operator_num != null) {
+            stmt.bindString(23, operator_num);
+        }
     }
 
     @Override
@@ -284,7 +296,8 @@ public class TransactionReqSubBeanDao extends AbstractDao<TransactionReqSubBean,
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // serialNum
             cursor.getInt(offset + 19), // payType
             cursor.getInt(offset + 20), // pointAmount
-            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // verify
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // verify
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22) // operator_num
         );
         return entity;
     }
@@ -313,6 +326,7 @@ public class TransactionReqSubBeanDao extends AbstractDao<TransactionReqSubBean,
         entity.setPayType(cursor.getInt(offset + 19));
         entity.setPointAmount(cursor.getInt(offset + 20));
         entity.setVerify(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setOperator_num(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
      }
     
     @Override

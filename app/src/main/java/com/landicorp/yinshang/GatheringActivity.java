@@ -37,10 +37,8 @@ import com.landicorp.yinshang.utils.Constant;
 import com.landicorp.yinshang.utils.MD5Util;
 import com.landicorp.yinshang.utils.MyToast;
 import com.landicorp.yinshang.utils.SharePreferenceHelper;
-import com.landicorp.yinshang.zxing.android.CaptureActivity;
 import com.ums.AppHelper;
 
-import org.greenrobot.greendao.query.Query;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -130,7 +128,7 @@ public class GatheringActivity extends BaseActivity {
         btn_reprint.setOnClickListener(clickListener);
         btn_confirm_shouyin.setOnClickListener(clickListener);
         Bundle bd = getIntent().getExtras();
-        if(bd != null) {
+        if (bd != null) {
             boolean isMember = bd.getBoolean("isMember");//是否使用了会员计算，
             password = bd.getString("password");
             point = bd.getInt("point");
@@ -138,20 +136,20 @@ public class GatheringActivity extends BaseActivity {
             jifenPoint = bd.getInt("jifenPoint");
             youhuiquanPoint = bd.getInt("youhuiquanPoint");
             memberCardNo = bd.getString("memberCardNo");
-            if(isMember) {
+            if (isMember) {
                 saleRespBean = bd.getParcelable("SaleRespBean");
                 outputAmount = saleRespBean.realMoney;
-                txt_sale_total.setText("¥ " + AmountUtil.divide((double)(saleRespBean.tradeMoney), (double)100,2));
-                txt_sale.setText("¥ " + AmountUtil.divide((double)(saleRespBean.realMoney), (double)100,2));
-                txt_integral.setText("¥ " + AmountUtil.divide((double)(saleRespBean.pointCoverMoney), (double)100,2));
-                txt_coupon_deduction.setText("¥ " + AmountUtil.divide((double)(saleRespBean.couponCoverMoney), (double)100,2));
+                txt_sale_total.setText("¥ " + AmountUtil.divide((double) (saleRespBean.tradeMoney), (double) 100, 2));
+                txt_sale.setText("¥ " + AmountUtil.divide((double) (saleRespBean.realMoney), (double) 100, 2));
+                txt_integral.setText("¥ " + AmountUtil.divide((double) (saleRespBean.pointCoverMoney), (double) 100, 2));
+                txt_coupon_deduction.setText("¥ " + AmountUtil.divide((double) (saleRespBean.couponCoverMoney), (double) 100, 2));
                 jifenPoint = saleRespBean.pointCoverMoney;
                 youhuiquanPoint = saleRespBean.couponCoverMoney;
                 couponStr = saleRespBean.couponSns;
             } else {
                 outputAmount = bd.getInt("outputAmount");
-                txt_sale_total.setText("¥ " + AmountUtil.divide((double)(outputAmount), (double)100,2));
-                if(!mianfei) {
+                txt_sale_total.setText("¥ " + AmountUtil.divide((double) (outputAmount), (double) 100, 2));
+                if (!mianfei) {
                     txt_sale.setText("¥ " + AmountUtil.divide((double) (outputAmount), (double) 100, 2));
                     txt_integral.setText("¥ 0.0");
                     txt_coupon_deduction.setText("¥ 0.0");
@@ -164,14 +162,14 @@ public class GatheringActivity extends BaseActivity {
             }
 
         }
-        if(mianfei) {
+        if (mianfei) {
             layout_paytype.setVisibility(View.GONE);
             btn_confirm_shouyin.setVisibility(View.VISIBLE);
         } else {
             layout_paytype.setVisibility(View.VISIBLE);
             btn_confirm_shouyin.setVisibility(View.GONE);
         }
-        if(saleRespBean != null) {
+        if (saleRespBean != null) {
             dingdanMoney = AmountUtil.divide((double) (saleRespBean.tradeMoney), (double) 100, 2);
             shishouMoney = AmountUtil.divide((double) (outputAmount), (double) 100, 2);
             jifenMoney = AmountUtil.divide((double) (saleRespBean.pointCoverMoney), (double) 100, 2);
@@ -179,76 +177,77 @@ public class GatheringActivity extends BaseActivity {
         } else {
             dingdanMoney = AmountUtil.divide((double) (outputAmount), (double) 100, 2);
             shishouMoney = AmountUtil.divide((double) (outputAmount), (double) 100, 2);
-            if(mianfei)
+            if (mianfei)
                 shishouMoney = 0.0;
         }
     }
 
     String currentClientOrderNo = null;//为了重新打印和打印
+
     /**
-     *  //流水上传 仅限银行卡和pos通支付
+     * //流水上传 仅限银行卡和pos通支付
      */
     private void uplaodTransactionFlowing() {
         String activateCode = "";
-        if(payType == 1 || payType == 3) {
+        if (payType == 1 || payType == 3) {
             activateCode = payInfoBean.getTerminalNo();
-        } else if(payType == 6 || payType == 7) {
+        } else if (payType == 6 || payType == 7) {
             activateCode = payInfoBean.getTerminalNo();
-        }else if(payType == 13) {
-            activateCode = ((BaseApplication)getApplication()).getSystemInfo().getSN();
+        } else if (payType == 13) {
+            activateCode = ((BaseApplication) getApplication()).getSystemInfo().getSN();
         }
         String authCode = "";
-        if(payType == 1 || payType == 3) {
+        if (payType == 1 || payType == 3) {
             authCode = payInfoBean.getTraceNo();
-        } else if(payType == 6) {
+        } else if (payType == 6) {
             authCode = payInfoBean.getTraceNo();
-        } else if(payType == 7) {
+        } else if (payType == 7) {
 
         }
         int bankAmount = 0;
-        if(payType == 1 || payType == 3 || payType == 6) {
-            if(saleRespBean != null)
-              bankAmount = saleRespBean.realMoney;
+        if (payType == 1 || payType == 3 || payType == 6) {
+            if (saleRespBean != null)
+                bankAmount = saleRespBean.realMoney;
             else
-              bankAmount= outputAmount;
-        } else if(payType == 7) {
+                bankAmount = outputAmount;
+        } else if (payType == 7) {
 
         }
         String cardNo = "";
-        if(memberCardNo != null)
+        if (memberCardNo != null)
             cardNo = memberCardNo;
         int cash = 0;
-        if(payType == 7) {//现金的数据
+        if (payType == 7) {//现金的数据
             cash = 0;
         }
         String clientOrderNo = "";
-        if(payType == 1 || payType == 3) {
+        if (payType == 1 || payType == 3) {
             //TODO
-            String time = payInfoBean.getDate()+payInfoBean.getTime();
-            int cot = 1+(int)(Math.random()*999);
-            clientOrderNo = "2" + payType + time.replace("/","").replace(":","") + cot + ((BaseApplication)getApplication()).getSystemInfo().getSN() ;
-        } else if(payType == 6 || payType == 7) {
-            String time = payInfoBean.getDate()+payInfoBean.getTime();
-            int cot = 1+(int)(Math.random()*999);
-            clientOrderNo = "2" + payType + time.replace("/","").replace(":","") + cot +payInfoBean.getMerchantNo();
+            String time = payInfoBean.getDate() + payInfoBean.getTime();
+            int cot = 1 + (int) (Math.random() * 999);
+            clientOrderNo = "2" + payType + time.replace("/", "").replace(":", "") + cot + ((BaseApplication) getApplication()).getSystemInfo().getSN();
+        } else if (payType == 6 || payType == 7) {
+            String time = payInfoBean.getDate() + payInfoBean.getTime();
+            int cot = 1 + (int) (Math.random() * 999);
+            clientOrderNo = "2" + payType + time.replace("/", "").replace(":", "") + cot + payInfoBean.getMerchantNo();
         }
-        currentClientOrderNo=clientOrderNo;
+        currentClientOrderNo = clientOrderNo;
         int couponCoverAmount = 0;
-        if(saleRespBean != null) {
+        if (saleRespBean != null) {
             couponCoverAmount = saleRespBean.couponCoverMoney;
         }
-        String couponSns  = "";
-        if(saleRespBean != null) {
+        String couponSns = "";
+        if (saleRespBean != null) {
             couponSns = saleRespBean.couponSns;
         }
         String merchantNo = "";
-        if(payType == 1 || payType == 3) {
+        if (payType == 1 || payType == 3) {
             merchantNo = payInfoBean.getMerchantNo();
-        } else if(payType == 6 || payType == 7) {
+        } else if (payType == 6 || payType == 7) {
             merchantNo = payInfoBean.getMerchantNo();
         }
         String password = "";
-        if(this.password != null) {
+        if (this.password != null) {
             try {
                 password = Base64.encryptBASE64(this.password.getBytes());
             } catch (Exception e) {
@@ -258,47 +257,48 @@ public class GatheringActivity extends BaseActivity {
         final int payType = this.payType;
         int pointAmount = point;
         int pointCoverAmount = 0;
-        if(saleRespBean != null) {
+        if (saleRespBean != null) {
             pointCoverAmount = saleRespBean.pointCoverMoney;
         }
-        String serialNum = ((BaseApplication)getApplication()).getSystemInfo().getSN();
+        String serialNum = ((BaseApplication) getApplication()).getSystemInfo().getSN();
         int sid = SharePreferenceHelper.getInstance(GatheringActivity.this).getInt("SID");
         long t = 0;
-        String time = (payInfoBean.getDate()+payInfoBean.getTime()).replace("/","").replace(":","");
+        String time = (payInfoBean.getDate() + payInfoBean.getTime()).replace("/", "").replace(":", "");
         try {
-            t = sf.parse(time).getTime()/1000;
+            t = sf.parse(time).getTime() / 1000;
         } catch (ParseException e) {
             e.printStackTrace();
         }
         String transNo = "";
-        if(payType == 1 || payType == 3 || payType == 6 || payType == 7) {
+        if (payType == 1 || payType == 3 || payType == 6 || payType == 7) {
             transNo = payInfoBean.getTraceNo();
         }
         StringBuffer sb = new StringBuffer();
-        if(activateCode != null)
+        if (activateCode != null)
             sb.append(activateCode);
-        if(authCode != null)
+        if (authCode != null)
             sb.append(authCode);
         sb.append(bankAmount);
-        if(cardNo != null)
+        if (cardNo != null)
             sb.append(cardNo);
         sb.append(cash);
-        if(clientOrderNo != null)
+        if (clientOrderNo != null)
             sb.append(clientOrderNo);
         sb.append(couponCoverAmount);
-        if(couponSns != null)
+        if (couponSns != null)
             sb.append(couponSns);
-        if(merchantNo != null)
+        if (merchantNo != null)
             sb.append(merchantNo);
-        if(password != null)
+        if (password != null)
             sb.append(password);
+        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         sb.append(payType);
         sb.append(pointAmount);
         sb.append(pointCoverAmount);
         sb.append(serialNum);
         sb.append(sid);
         sb.append(t);
-        if(transNo != null)
+        if (transNo != null)
             sb.append(transNo);
         sb.append(Constant.KEY);
         String verify = MD5Util.md5(sb.toString());
@@ -314,7 +314,7 @@ public class GatheringActivity extends BaseActivity {
         subBean.setCouponCoverAmount(couponCoverAmount);
         subBean.setCouponSns(couponSns);
         subBean.setMerchantNo(merchantNo);
-            subBean.setPassword(password);
+        subBean.setPassword(password);
         subBean.setPayType(payType);
         subBean.setPointAmount(pointAmount);
         subBean.setPointCoverAmount(pointCoverAmount);
@@ -323,9 +323,10 @@ public class GatheringActivity extends BaseActivity {
         subBean.setT(t);
         subBean.setTransNo(transNo);
         subBean.setVerify(verify);
+        subBean.setOperator_num(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         baseReqBean.setParams(subBean);
         String postInfoStr = gson.toJson(baseReqBean);
-        if(saleRespBean != null) {
+        if (saleRespBean != null) {
             subBean.setOrderAmount(String.valueOf(saleRespBean.tradeMoney));
         } else {
             subBean.setOrderAmount(String.valueOf(outputAmount));
@@ -337,7 +338,7 @@ public class GatheringActivity extends BaseActivity {
             @Override
             public void onReqSuccess(TransactionResponse result) {
 //                MyToast.showText(result.code+ "-----------" );
-                if(GatheringActivity.this.payType == 1 || GatheringActivity.this.payType == 3 || GatheringActivity.this.payType == 6) {
+                if (GatheringActivity.this.payType == 1 || GatheringActivity.this.payType == 3 || GatheringActivity.this.payType == 6) {
                     if (result.code.equals(Constant.SUCCESS_CODE)) {
                         MyToast.showText("流水上传成功");
                         TransactionReqSubBeanDao dao = DBManager.getInstance().getSession().getTransactionReqSubBeanDao();
@@ -367,35 +368,36 @@ public class GatheringActivity extends BaseActivity {
 
     TransactionReqSubBean packetSubBean;//为了重新打印创建的对象
     TransactionRespBean packetResp;//为了重新打印创建的对象（主要是二维码的url）
+
     /**
-     *  //钱包流水上传
+     * //钱包流水上传
      */
     private void uplaodWalletFlowing() {
-        String activateCode = ((BaseApplication)getApplication()).getSystemInfo().getSN();
+        String activateCode = ((BaseApplication) getApplication()).getSystemInfo().getSN();
         String authCode = walletRespBean.SystemOrderNo;
         int bankAmount = 0;
-        if(saleRespBean != null)
+        if (saleRespBean != null)
             bankAmount = saleRespBean.realMoney;
         else
-            bankAmount= outputAmount;
+            bankAmount = outputAmount;
         String cardNo = "";
-        if(memberCardNo != null)
+        if (memberCardNo != null)
             cardNo = memberCardNo;
         int cash = 0;//
-        int cot = 1+(int)(Math.random()*999);
+        int cot = 1 + (int) (Math.random() * 999);
 //        String clientOrderNo = "2" + payType + sf.format(new Date())+ cot + ((BaseApplication)getApplication()).getSystemInfo().getSN() ;
         String clientOrderNo = orgOrderNum;
         int couponCoverAmount = 0;
-        if(saleRespBean != null) {
+        if (saleRespBean != null) {
             couponCoverAmount = saleRespBean.couponCoverMoney;
         }
-        String couponSns  = "";
-        if(saleRespBean != null) {
+        String couponSns = "";
+        if (saleRespBean != null) {
             couponSns = saleRespBean.couponSns;
         }
         String merchantNo = walletRespBean.groupId;
         String password = "";
-        if(this.password != null) {
+        if (this.password != null) {
             try {
                 password = Base64.encryptBASE64(this.password.getBytes());
             } catch (Exception e) {
@@ -405,38 +407,39 @@ public class GatheringActivity extends BaseActivity {
         int payType = this.payType;
         int pointAmount = point;
         int pointCoverAmount = 0;
-        if(saleRespBean != null) {
+        if (saleRespBean != null) {
             pointCoverAmount = saleRespBean.pointCoverMoney;
         }
-        String serialNum = ((BaseApplication)getApplication()).getSystemInfo().getSN();
+        String serialNum = ((BaseApplication) getApplication()).getSystemInfo().getSN();
         int sid = SharePreferenceHelper.getInstance(GatheringActivity.this).getInt("SID");
         long t = new Date().getTime() / 1000;
         String transNo = walletRespBean.SystemOrderNo;
         StringBuffer sb = new StringBuffer();
-        if(activateCode != null)
+        if (activateCode != null)
             sb.append(activateCode);
-        if(authCode != null)
+        if (authCode != null)
             sb.append(authCode);
         sb.append(bankAmount);
-        if(cardNo != null)
+        if (cardNo != null)
             sb.append(cardNo);
         sb.append(cash);
-        if(clientOrderNo != null)
+        if (clientOrderNo != null)
             sb.append(clientOrderNo);
         sb.append(couponCoverAmount);
-        if(couponSns != null)
+        if (couponSns != null)
             sb.append(couponSns);
-        if(merchantNo != null)
+        if (merchantNo != null)
             sb.append(merchantNo);
-        if(password != null)
+        if (password != null)
             sb.append(password);
+        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         sb.append(payType);
         sb.append(pointAmount);
         sb.append(pointCoverAmount);
         sb.append(serialNum);
         sb.append(sid);
         sb.append(t);
-        if(transNo != null)
+        if (transNo != null)
             sb.append(transNo);
         sb.append(Constant.KEY);
         String verify = MD5Util.md5(sb.toString());
@@ -461,10 +464,11 @@ public class GatheringActivity extends BaseActivity {
         subBean.setT(t);
         subBean.setTransNo(transNo);
         subBean.setVerify(verify);
+        subBean.setOperator_num(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         baseReqBean.setParams(subBean);
         String postInfoStr = gson.toJson(baseReqBean);
         packetSubBean = subBean;
-        if(saleRespBean != null) {
+        if (saleRespBean != null) {
             subBean.setOrderAmount(String.valueOf(saleRespBean.tradeMoney));
         } else {
             subBean.setOrderAmount(String.valueOf(outputAmount));
@@ -516,7 +520,7 @@ public class GatheringActivity extends BaseActivity {
         String authCode = "";
         int bankAmount = 0;
         String cardNo = "";
-        if(memberCardNo != null)
+        if (memberCardNo != null)
             cardNo = memberCardNo;
         int cash = 0;
         int cot = 1 + (int) (Math.random() * 999);
@@ -531,7 +535,7 @@ public class GatheringActivity extends BaseActivity {
         }
         String merchantNo = bean.merchantNo;
         String password = "";
-        if(this.password != null) {
+        if (this.password != null) {
             try {
                 password = Base64.encryptBASE64(this.password.getBytes());
             } catch (Exception e) {
@@ -563,6 +567,7 @@ public class GatheringActivity extends BaseActivity {
             sb.append(merchantNo);
         if (password != null)
             sb.append(password);
+        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         sb.append(payType);
         sb.append(pointAmount);
         sb.append(pointCoverAmount);
@@ -594,10 +599,11 @@ public class GatheringActivity extends BaseActivity {
         subBean.setT(t);
         subBean.setTransNo(transNo);
         subBean.setVerify(verify);
+        subBean.setOperator_num(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         baseReqBean.setParams(subBean);
         String postInfoStr = gson.toJson(baseReqBean);
         packetSubBean = subBean;
-        if(saleRespBean != null) {
+        if (saleRespBean != null) {
             subBean.setOrderAmount(String.valueOf(saleRespBean.tradeMoney));
         } else {
             subBean.setOrderAmount(String.valueOf(outputAmount));
@@ -641,20 +647,22 @@ public class GatheringActivity extends BaseActivity {
 
     /**
      * //钱包支付
+     *
      * @param qrCode 二维码
      */
     String orgOrderNum = "";
+
     private void uploadWalletPay(String qrCode) {
         String merchantId = SharePreferenceHelper.getInstance(GatheringActivity.this).getInt("SID") + "";
         String orderCurrency = "156";
 
         String time = sf.format(new Date());
-        int cot = 1+(int)(Math.random()*999);
-        orgOrderNum = "2" + payType + time + cot + ((BaseApplication)getApplication()).getSystemInfo().getSN() ;
+        int cot = 1 + (int) (Math.random() * 999);
+        orgOrderNum = "2" + payType + time + cot + ((BaseApplication) getApplication()).getSystemInfo().getSN();
         String orgTranDateTime = time;
-        int cot5 = 1+(int)(Math.random()*99999);
+        int cot5 = 1 + (int) (Math.random() * 99999);
         String sysTraceNum = time + cot5;
-        String terminalNo = ((BaseApplication)getApplication()).getSystemInfo().getSN();
+        String terminalNo = ((BaseApplication) getApplication()).getSystemInfo().getSN();
         String tranAmt = "" + outputAmount;
         String tranCode = "9448";
         StringBuffer sb = new StringBuffer();
@@ -662,6 +670,7 @@ public class GatheringActivity extends BaseActivity {
         sb.append(orderCurrency);
         sb.append(orgOrderNum);
         sb.append(orgTranDateTime);
+        sb.append(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         sb.append(qrCode);
         sb.append(sysTraceNum);
         sb.append(terminalNo);
@@ -682,6 +691,7 @@ public class GatheringActivity extends BaseActivity {
         subBean.setTranAmt(tranAmt);
         subBean.setTranCode(tranCode);
         subBean.setVerify(verify);
+        subBean.setOperator_num(SharePreferenceHelper.getInstance(GatheringActivity.this).getString("username"));
         baseReqBean.setParams(subBean);
         String postInfoStr = gson.toJson(baseReqBean);
         RequestManager.getInstance(this).post(this, apiService.uploadWallet(getBody(postInfoStr)), new ReqCallBack<WalletResponse>() {
@@ -711,6 +721,7 @@ public class GatheringActivity extends BaseActivity {
 
     /**
      * //重新打印
+     *
      * @param
      */
     private void reprintScanOnlyReq(final String clientOrderNo, final int payType) {
@@ -749,6 +760,7 @@ public class GatheringActivity extends BaseActivity {
 
     /**
      * //重新打印
+     *
      * @param
      */
     private void reprint(final String clientOrderNo, final int payType) {
@@ -785,7 +797,7 @@ public class GatheringActivity extends BaseActivity {
         });
     }
 
-//    private void printInfo(final String clientOrderNo, String scanCodeUrl, final int payType) {
+    //    private void printInfo(final String clientOrderNo, String scanCodeUrl, final int payType) {
 //
 //        Glide.with(this).load(scanCodeUrl).asBitmap().into(new SimpleTarget<Bitmap>() {
 //            @Override
@@ -830,26 +842,26 @@ public class GatheringActivity extends BaseActivity {
 //    }
     private void printOnlyScan(final String clientOrderNo, final int payType, final TransactionRespBean result) {
 
-        if(result != null && result.point_url != null) {
+        if (result != null && result.point_url != null) {
             Glide.with(this).load(result.point_url).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                     final Bitmap resourceYouhui = resource;
-                    if(result.coupon != null && !result.coupon.equals("")) {
+                    if (result.coupon != null && !result.coupon.equals("")) {
                         Glide.with(GatheringActivity.this).load(result.coupon).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                                 BillPrintUtils.printOnlySacnBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney,
-                                        AmountUtil.divide((double) result.backAmt, (double) 100, 2), resourceYouhui,  resource, result.point, result.title_url, result.money);
+                                        AmountUtil.divide((double) result.backAmt, (double) 100, 2), resourceYouhui, resource, result.point, result.title_url, result.money);
                             }
 
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                BillPrintUtils.printOnlySacnBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), resourceYouhui,  null, result.point, result.title_url, result.money);
+                                BillPrintUtils.printOnlySacnBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), resourceYouhui, null, result.point, result.title_url, result.money);
                             }
                         });
                     } else {
-                        BillPrintUtils.printOnlySacnBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), resourceYouhui,  null, result.point, result.title_url, result.money);
+                        BillPrintUtils.printOnlySacnBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), resourceYouhui, null, result.point, result.title_url, result.money);
                     }
                 }
 
@@ -864,39 +876,42 @@ public class GatheringActivity extends BaseActivity {
 
     private void printInfo(final String clientOrderNo, final int payType, final TransactionRespBean result) {
 
-        if(result != null && result.point_url != null) {
+        if (result != null && result.point_url != null) {
             Glide.with(this).load(result.point_url).asBitmap().into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                     final Bitmap resourceYouhui = resource;
-                    if(result.coupon != null && !result.coupon.equals("")) {
+                    if (result.coupon != null && !result.coupon.equals("")) {
                         Glide.with(GatheringActivity.this).load(result.coupon).asBitmap().into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                if(payType == 13) {
-                                    BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney,AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, walletRespBean.groupId,
-                                            ((BaseApplication)getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
+                                if (payType == 13) {
+                                    BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
+                                            (double) 100, 2), clientOrderNo, walletRespBean.groupId,
+                                            ((BaseApplication) getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
                                             resource, result.point, result.title_url, result.money);
                                 } else {
-                                    BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2),clientOrderNo, resourceYouhui, payType,
+                                    BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
+                                            (double) 100, 2), clientOrderNo, resourceYouhui, payType,
                                             resource, result.point, result.title_url, result.money);
                                 }
                             }
 
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                if(payType == 13) {
+                                if (payType == 13) {
                                     BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, walletRespBean.groupId,
-                                            ((BaseApplication)getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
+                                            ((BaseApplication) getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
                                             null, result.point, result.title_url, result.money);
                                 } else
-                                BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2),clientOrderNo, resourceYouhui, payType);
+                                    BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt,
+                                            (double) 100, 2), clientOrderNo, resourceYouhui, payType);
                             }
                         });
                     } else {
-                        if(payType == 13) {
-                            BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney,  AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, walletRespBean.groupId,
-                                    ((BaseApplication)getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
+                        if (payType == 13) {
+                            BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, walletRespBean.groupId,
+                                    ((BaseApplication) getApplication()).getSystemInfo().getSN(), resourceYouhui, payType,
                                     null, result.point, result.title_url, result.money);
                         } else
                             BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, resource, payType);
@@ -905,18 +920,18 @@ public class GatheringActivity extends BaseActivity {
 
                 @Override
                 public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                    if(payType == 13) {
+                    if (payType == 13) {
                         BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, walletRespBean.groupId,
-                                ((BaseApplication)getApplication()).getSystemInfo().getSN(), null, payType,
+                                ((BaseApplication) getApplication()).getSystemInfo().getSN(), null, payType,
                                 null, result.point, result.title_url, result.money);
                     } else
-                        BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney,  AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, null, payType);
+                        BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, AmountUtil.divide((double) result.backAmt, (double) 100, 2), clientOrderNo, null, payType);
                 }
             }); //方法中设置asBitmap可以设置回调类型
         } else {
-            if(payType == 13) {
+            if (payType == 13) {
                 BillPrintUtils.printPakectBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, 0.0, clientOrderNo, walletRespBean.groupId,
-                        ((BaseApplication)getApplication()).getSystemInfo().getSN(), null, payType,
+                        ((BaseApplication) getApplication()).getSystemInfo().getSN(), null, payType,
                         null, result.point, result.title_url, result.money);
             } else
                 BillPrintUtils.printBill(GatheringActivity.this, dingdanMoney, shishouMoney, jifenMoney, youhuiMoney, 0.0, clientOrderNo, null, payType);
@@ -925,19 +940,19 @@ public class GatheringActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(AppHelper.TRANS_REQUEST_CODE == requestCode){
+        if (AppHelper.TRANS_REQUEST_CODE == requestCode) {
             if (Activity.RESULT_OK == resultCode) {
                 if (null != data) {
                     StringBuilder result = new StringBuilder();
-                    Map<String,String> map = AppHelper.filterTransResult(data);
-                    result.append(AppHelper.TRANS_APP_NAME + ":" +map.get(AppHelper.TRANS_APP_NAME) + "\r\n");
-                    result.append(AppHelper.TRANS_BIZ_ID + ":" +map.get(AppHelper.TRANS_BIZ_ID) + "\r\n");
-                    result.append(AppHelper.RESULT_CODE + ":" +map.get(AppHelper.RESULT_CODE) + "\r\n");
-                    result.append(AppHelper.RESULT_MSG + ":" +map.get(AppHelper.RESULT_MSG) + "\r\n");
-                    result.append(AppHelper.TRANS_DATA + ":" +map.get(AppHelper.TRANS_DATA) + "\r\n");
-                    if(map.get(AppHelper.RESULT_CODE).equals("0") && !isReprint) {
+                    Map<String, String> map = AppHelper.filterTransResult(data);
+                    result.append(AppHelper.TRANS_APP_NAME + ":" + map.get(AppHelper.TRANS_APP_NAME) + "\r\n");
+                    result.append(AppHelper.TRANS_BIZ_ID + ":" + map.get(AppHelper.TRANS_BIZ_ID) + "\r\n");
+                    result.append(AppHelper.RESULT_CODE + ":" + map.get(AppHelper.RESULT_CODE) + "\r\n");
+                    result.append(AppHelper.RESULT_MSG + ":" + map.get(AppHelper.RESULT_MSG) + "\r\n");
+                    result.append(AppHelper.TRANS_DATA + ":" + map.get(AppHelper.TRANS_DATA) + "\r\n");
+                    if (map.get(AppHelper.RESULT_CODE).equals("0") && !isReprint) {
                         payInfoBean = gson.fromJson(map.get(AppHelper.TRANS_DATA), PayInfoBean.class);
-                        if(payInfoBean.getResCode().equals("00")) {//成功
+                        if (payInfoBean.getResCode().equals("00")) {//成功
 //                            if(payType == 1 || payType == 3 || payType == 6) {
 //                                PayInfoBeanDao dao = DBManager.getInstance().getSession().getPayInfoBeanDao();
 
@@ -949,20 +964,19 @@ public class GatheringActivity extends BaseActivity {
                             uplaodTransactionFlowing();
                         }
                         MyToast.showText(payInfoBean.getResDesc());
-                    } else if(map.get(AppHelper.RESULT_CODE).equals("0") && isReprint) {
+                    } else if (map.get(AppHelper.RESULT_CODE).equals("0") && isReprint) {
                         reprintScanOnlyReq(currentClientOrderNo, payType);
-                    }
-                     else {
+                    } else {
                         MyToast.showText(map.get(AppHelper.TRANS_DATA));
                     }
-                } else{
+                } else {
 //                    textView.setText("Intent is null");
                 }
             } else {
 //                textView.setText("resultCode is not RESULT_OK");
             }
-        } else if(REQUEST_CODE_SCAN == requestCode) {
-            if(RESULT_OK == resultCode) {
+        } else if (REQUEST_CODE_SCAN == requestCode) {
+            if (RESULT_OK == resultCode) {
                 if (data != null) {
                     String content = data.getStringExtra(DECODED_CONTENT_KEY);
                     uploadWalletPay(content);
@@ -1010,7 +1024,7 @@ public class GatheringActivity extends BaseActivity {
                     bd2.putString("password", password);
                     bd2.putInt("point", point);
                     bd2.putString("memberCardNo", memberCardNo);
-                    if(saleRespBean != null) {
+                    if (saleRespBean != null) {
                         bd2.putParcelable("SaleRespBean", saleRespBean);
                     } else {
                         bd2.putInt("outputAmount", outputAmount);
@@ -1027,7 +1041,7 @@ public class GatheringActivity extends BaseActivity {
                     sb1.append("\"");
                     sb1.append(String.valueOf(outputAmount));
                     sb1.append("\"}");
-                    String ss1 = "{\"amt\":" + 1 +"}";
+                    String ss1 = "{\"amt\":" + 1 + "}";
                     JSONObject json1 = null;
                     try {
 //                        json1 = new JSONObject(ss1);
@@ -1041,7 +1055,7 @@ public class GatheringActivity extends BaseActivity {
                     isReprint = false;
                     payType = 3;
 //                    String ss2 = "{\"amt\":" + outputAmount +"}";
-                    String ss2 = "{\"amt\":" + 1 +"}";
+                    String ss2 = "{\"amt\":" + 1 + "}";
                     StringBuffer sb2 = new StringBuffer();
                     sb2.append("{\"amt\":");
                     sb2.append("\"");
@@ -1072,7 +1086,7 @@ public class GatheringActivity extends BaseActivity {
 //                    String rep = "{\"traceNo\":\"000000\"}";
                     StringBuffer sb3 = new StringBuffer();
                     JSONObject jsonrep = null;
-                    if(payType == 6) {
+                    if (payType == 6) {
                         sb3.append("{\"traceNo\":");
                         sb3.append("\"");
                         sb3.append(payInfoBean.getTraceNo());
@@ -1083,7 +1097,7 @@ public class GatheringActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                         AppHelper.callTrans(GatheringActivity.this, "银行卡收款", "交易明细", jsonrep);
-                    } else if(payType == 1 || payType == 3) {
+                    } else if (payType == 1 || payType == 3) {
                         sb3.append("{\"traceNo\":");
                         sb3.append("\"");
                         sb3.append(payInfoBean.getTraceNo());
@@ -1094,15 +1108,15 @@ public class GatheringActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                         AppHelper.callTrans(GatheringActivity.this, "POS 通", "交易明细", jsonrep);
-                    } else if(payType == 7)
+                    } else if (payType == 7)
                         reprint(packetSubBean.getClientOrderNo(), 7);
 //                        printInfo(packetSubBean.getClientOrderNo(), packetResp == null ? null : packetResp.point_url, packetSubBean.getPayType());
-                    else if(payType == 13)
+                    else if (payType == 13)
                         reprint(packetSubBean.getClientOrderNo(), 13);
 //                        printInfo(packetSubBean.getClientOrderNo(), packetResp == null ? null : packetResp.point_url, packetSubBean.getPayType());
                     break;
                 case R.id.btn_success:
-                    if(MemberActivity.instance != null)
+                    if (MemberActivity.instance != null)
                         MemberActivity.instance.finish();
                     finish();
                     break;
